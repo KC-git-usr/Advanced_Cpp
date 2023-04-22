@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "MathWorks",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "MathWorks::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-MathWorks-Debug-292b770c28300841e4bc.json",
+					"name" : "MathWorks",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Modified::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Modified-Debug-928756c12c1d54a3d599.json",
+					"name" : "Modified",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Modified2::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Modified2-Debug-eca0046446ed823bff52.json",
+					"name" : "Modified2",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Kumar Chakravarthy/CLionProjects/MathWorks/cmake-build-debug",
+		"source" : "C:/Users/Kumar Chakravarthy/CLionProjects/MathWorks"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

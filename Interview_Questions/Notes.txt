@@ -1,0 +1,320 @@
+vector initialization:
+    std::vector<std::pair<float, float>> input_points {{1.1,1.1}, {5.5, 5.5}};
+
+-------------------------------------------------------------------------------------------------------
+
+void pointers:
+    * special pointers that can store pointer of any data type
+    * cannot be dereferenced directly
+    * needs to be casted to the data type it is storing
+
+    int a = 10;
+    void* ptr = &a;
+    std::cout<<*((int*)ptr); //this gives back 10
+    char* c = 'k';
+    ptr = &c;
+    std::cout<<*((char*)ptr); //this gives back 'k'
+
+-------------------------------------------------------------------------------------------------------
+
+smart pointers:
+    * unique pointers
+
+    #include <memory>
+    unique_ptr<int> unPtr1 = make_unique<int>(25);
+    std::cout<<*unPtr1<<std::endl;
+    unique_ptr<int> unPtr2 = std::move(unPtr1); // ownership changed, unPtr1 becomes nullptr now
+
+    * shared pointers
+
+    #include <memory>
+    shared_ptr<int> shPtr1 = make_shared<int>(69);
+    std::cout<<*shPtr1<<std::endl;
+    std::cout<<shPtr1.use_count()<<std::endl;
+    shared_ptr<int> shPtr2 = shPtr1;
+    std::cout<<shPtr1.use_count()<<std::endl;
+    std::cout<<shPtr2.use_count()<<std::endl;
+
+-------------------------------------------------------------------------------------------------------
+
+casting:
+    * the only adv static, reinterpret, const and dynamic cast over a C style cast is that
+    * is it now easier to search for cast in the code base
+
+    * static_cast
+
+
+--------------------------------------------------------------------------------------------------------
+
+Object initialization
+
+
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+struct Vehicle {
+    int wheels;
+    float cost;
+    Vehicle(int wheels_, float cost_) :
+        wheels(wheels_),
+        cost(cost_) {}
+};
+
+int main()
+{
+    shared_ptr<int> shPtr1 = make_shared<int>(29);
+    cout<<shPtr1<<endl;
+    cout<<*shPtr1<<endl;
+    cout<<shPtr1.use_count()<<endl;
+    shared_ptr<int> shPtr2 = shPtr1;
+    cout<<shPtr1.use_count()<<endl;
+    cout<<shPtr2.use_count()<<endl;
+    *shPtr2 = 69;
+    cout<<*shPtr1<<endl;
+    cout<<*shPtr2<<endl;
+    cout<<shPtr1.use_count()<<endl;
+    cout<<shPtr2.use_count()<<endl;
+
+    Vehicle vehicle1 = Vehicle(4, 5000.01f);
+    Vehicle vehicle2 (2, 1000.5f); // Note used ()
+    Vehicle vehicle3 {3,500.9f}; // Note used {}
+    cout<<"Number of wheels = "<<vehicle3.wheels<<endl;
+    cout<<"Cost = "<<vehicle3.cost<<endl;
+
+    return 0;
+}
+
+--------------------------------------------------------------------------------------------------
+
+Virtual destructors: destructors must always be virtual for any class!
+                    * if not made virtual, only base class destructor will be called
+                      child class destructor will not be called and there will be memory leak
+                    * if parent class destructor is made virtual, then when deleting the base class pointer
+                      pointing to child class, then both the child class and base class destructor will be called
+                    * Derived class constructor gets called first, then base class
+
+--------------------------------------------------------------------------------------------------
+
+Apple:
+inheritance using classes vs structs
+constructors and destructors in classes and structs
+unique and shared ptr
+creating objects of custom class
+adding to vector and doing some operations: calc area, perimeter
+type casting from one type to another
+
+
+Interface: all methods are pure virtual, all pure virtual methods of parent class have to be
+	       implemented in child class
+Abstract: mix of pure and/or virtual and normal methods which has a common definition
+
+Virtual destructors: for interface base class destructor must always be virtual
+		             for abstract base class
+
+--------------------------------------------------------------------------------------------------
+
+give long variable names
+templates for different return types (getArea in Apple.cpp)
+dynamic_cast
+
+--------------------------------------------------------------------------------------------------
+
+Iterating over a set:
+
+my_set_variable[i] will not work
+
+    set<int> input_set {5,1,3,10};
+    // vector<int> input_vector {5,1,3,10};
+
+    // cout<<input_vector<<" ";
+
+    for (auto ele : input_set) {
+        cout<<ele<<" ";
+    }
+
+    cout<<endl;
+
+    for (auto it = input_set.begin(); it != input_set.end(); it++) {
+        cout<<*it<<" ";
+    }
+
+--------------------------------------------------------------------------------------------------
+
+Concatenating two vectors:
+
+    vector<int> my_vector_1 {1,2,3};
+    vector<int> my_vector_2 {4,5};
+
+    my_vector_1.insert(my_vector_1.end(), my_vector_2.begin(), my_vector_2.end()); // adding vector 2 to end to vector 1
+
+
+To check if vector is empty:
+
+    while(my_vector_1.empty()) { // don't use my_vector_1.size()
+        std::cout<<"this vector is empty";
+    }
+
+
+--------------------------------------------------------------------------------------------------
+
+std::find
+
+    #include <algorithm>
+
+    std::vector<int> input_list {5,9,4,6};
+    int target = 11;
+
+    auto it = std::find(input_list.begin(), input_list.end(), target);  // returns an iterator to the pos of where target was found, needs to be deref to retrieve target
+
+    if(it == input_list.end())
+        cout<<"target not found";
+
+
+std::greater and std::sort
+
+    #include<algorithm>
+
+    std::vector<int> my_input {5,7,1,3,4};
+    std::sort(my_input.begin(), my_input.end(), std::greater<int>());
+    std::sort(my_input.begin(), my_input.end(), std::less<int>());  // default (ascending order)
+
+
+--------------------------------------------------------------------------------------------------
+
+std::priority_queue
+
+    see Priority_Queue.cpp
+
+    To print data in priority_queue
+        NB: q is passed by value because there is no way to traverse
+            priority_queue's content without erasing the queue.
+
+
+
+--------------------------------------------------------------------------------------------------
+
+explicit constructor
+
+    * when we need to create an object with user defined values, instead of just creating an object
+      we use the explicit constructor
+    * when we declare an explicit constructor, we will lose the default constructor provided by the compiler
+      and will not be able to create a variable on stack, to do so we to define our own default constructor
+
+--------------------------------------------------------------------------------------------------
+
+Stack vs Heap
+Stack allocated during compile time
+Heap allocated during run time
+
+Trick Q: Is it possible to allocate heap memory during compile time? Yes, through templates
+The data type for the templates are determined during compile time
+
+--------------------------------------------------------------------------------------------------
+
+functors
+
+    struct CustomGreater {
+        bool operator()(pair<double, double> var1, pair<double, double> var2) {
+            return var1.first > var2.first;
+        }
+    };
+
+    * A functor is pretty much just a class which defines the operator().
+    * This lets you create objects which "look like" a function
+
+--------------------------------------------------------------------------------------------------
+
+container iterators
+
+    cannot do:
+    it + something
+    it * something
+    it / something
+
+    can do:
+    it++
+    it--
+
+
+    container.erase(it1, it2);
+        will erase elements from it1 to (it2 - 1), it will NOT erase the element at it2
+        unary operations cannot be performed on iterators, only ++it or it++ is overloaded
+        you can do container.erase(it1, ++it2); to erase element at it2 also
+    distance(first, second);
+        the order of the iterators passed to distance is important
+
+    unordered_map<string, map<int, string>> m_time_map;
+    m_time_map["foo"].insert({6,"bar"});
+    // this is not valid
+    // m_time_map.insert({"foo", {6,"bar"}});
+    // but this is valid
+    m_time_map.insert({"kc", {{3,"hi"}}});
+
+    an iterator of an unordered_map when dereferenced gives a pair
+    it->first
+    it->second
+
+
+--------------------------------------------------------------------------------------------------
+
+unordered_map
+
+    cannot do:
+    unordered_map<vector<int>, vector<string>> hash_map;
+
+    can do:
+    unordered_map<string, vector<string>> hash_map;
+
+--------------------------------------------------------------------------------------------------
+
+sort a vector of pairs
+
+    vector<pair<float, int>> time_series (n, {0.0f, 0});
+    auto customGreater = [](auto& left, auto& right) {return left.second > right.second;};
+    sort(time_series.begin(), time_series.end(), customGreater);
+--------------------------------------------------------------------------------------------------
+
+                                Notes for JnJ interview Qs:
+
+Copy constructor vs assignment constructor:
+    Copy constructor used to initialize a previously uninitialized object
+    A a(2.1, 3.5);
+    A b = a; // copy constructor
+
+    Assignment constructor used to initialize a previously initialized object
+    A a(1.2, 2.3);
+    A b;
+    b = a; // assignment constructor
+
+Virtual destructor:
+Even though destructors are not inherited, if a base class declares its destructor virtual,
+the derived destructor always overrides it. This makes it possible to delete dynamically allocated
+objects of polymorphic type through pointers to base.
+
+
+--------------------------------------------------------------------------------------------------
+
+
+
+
+                                TO DO
+
+Q. How to figure out the data type of input variable?
+    std::is_same<T, float>::value
+
+Q. How to use dynamic_cast?
+
+Q. Pointer to function vs Pointer to member function?
+
+Aurora
+To Do
+
+Review resume projects
+Review JD- https://aurora.tech/jobs/software-systems-safety-engineer-6105514002
+SOLID principles
+Testing stratergy
+Stack and Heap in memory
+Heap- young, old, permanent (Templates)
+LRU cache

@@ -1,0 +1,150 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.21"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Interview_Questions",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "Apple::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Apple-Debug-584b9f7e3de8215f53f7.json",
+					"name" : "Apple",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "BFS::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-BFS-Debug-d95e8fd960fe928b166f.json",
+					"name" : "BFS",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "DFS::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-DFS-Debug-c172a9579c4f7ba77a56.json",
+					"name" : "DFS",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "IKM::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-IKM-Debug-0c43acf581d35876c311.json",
+					"name" : "IKM",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Interview_Questions::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Interview_Questions-Debug-d583acd6fa390b90a933.json",
+					"name" : "Interview_Questions",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Leetcode::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Leetcode-Debug-75f4a3fb2696b22141ef.json",
+					"name" : "Leetcode",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Priority_Queue::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Priority_Queue-Debug-c826172e6c782143aec5.json",
+					"name" : "Priority_Queue",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "STL::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-STL-Debug-64f73a6bc1d9bafba787.json",
+					"name" : "STL",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Templates::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Templates-Debug-b3a8420da293f4dafadc.json",
+					"name" : "Templates",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Tesla::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Tesla-Debug-c8386fa67c76950ef1ec.json",
+					"name" : "Tesla",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "Unordered_Set::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-Unordered_Set-Debug-6c25378f5788ecbb2a39.json",
+					"name" : "Unordered_Set",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Kumar Chakravarthy/CLionProjects/Interview_Questions/cmake-build-debug",
+		"source" : "C:/Users/Kumar Chakravarthy/CLionProjects/Interview_Questions"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

@@ -1,0 +1,4 @@
+C:/Users/Kumar Chakravarthy/CLionProjects/CapGemini/cmake-build-debug/CMakeFiles/CapGemini.dir
+C:/Users/Kumar Chakravarthy/CLionProjects/CapGemini/cmake-build-debug/CMakeFiles/Test.dir
+C:/Users/Kumar Chakravarthy/CLionProjects/CapGemini/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Kumar Chakravarthy/CLionProjects/CapGemini/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,105 @@
+--------------------------------------------------------------------------------------------------
+                                Notes from IKM test Qs:
+
+delete expression
+    Destroys object(s) previously allocated by the new expression and releases obtained memory area.
+
+deleted function
+    We delete class methods to disable the usage of that member function
+
+Why explicitly delete the constructor instead of making it private?
+    class Foo {
+      public:
+        Foo() = delete;
+    };
+    * If made private, class methods can still access the constructor and
+      create local objects of the class
+    * If explicitly deleted, then it becomes illegal even for class methods
+      to access the constructor
+
+Types of constructors: (memorize these)
+    class Foo {
+        public:
+            Foo(const Foo& rhs) = delete;  // delete copy constructor
+            Foo& operator=(const Foo& rhs) = delete;  // delete copy assignment constructor
+    };
+
+mutable keyword:
+    * A lambda function, which is not declared mutable, cannot capture an external variable by value
+      and modify it
+    * A by-value capture cannot be modified in a non-mutable lambda
+    * A lambda function is not declared mutable by default
+
+try-throw-catch:
+    try {
+      // code here
+    }
+    catch (int param) { cout << "int exception"; }
+    catch (char param) { cout << "char exception"; }
+    catch (...) { cout << "default exception"; }
+
+* In C++, all statements that are not declarations or definitions need to be inside functions or blocks.
+* For instance, you cannot initialize a variable after declaring it, in different lines, outside a function/block
+
+Initializing const data members in constructor:
+    * Class members declared as const must be initialized in the constructor initializer list rather than
+      in the constructor body
+    * Initialisation happens in the initialisation list, and assignment happens in the body of the constructor
+
+this keyword:
+    * The this pointer is an implicit parameter to all member functions
+    * See IKM.cpp for additional notes
+    * If you had a function that returned this, it would be a pointer to the current object,
+      while a function that returned *this would be a "clone" of the current object,
+      allocated on the stack -- unless you have specified the return type of the method to return a reference.
+
+storage duration:
+    * https://en.cppreference.com/w/cpp/language/storage_duration#Storage_duration
+    * automatic, static, thread, dynamic storage duration
+
+inheritance matrix:
+    * https://www.google.com/search?q=private+protected+public+inheritance+matrix&tbm=isch&ved=2ahUKEwjH_uezzK_-AhX5It4AHZUeDmsQ2-cCegQIABAA&oq=private+protected+public+inheritance+matrix&gs_lcp=CgNpbWcQAzoECCMQJ1CACVjvFmD6F2gAcAB4AIABTYgBywaSAQIxM5gBAKABAaoBC2d3cy13aXotaW1nwAEB&sclient=img&ei=YIo8ZMfOKvnF-LYPlb242AY&bih=937&biw=1920#imgrc=uz7sQdj4_i1wqM
+
+typeid operator:
+    * Used where the dynamic type of a polymorphic object must be known and for static type identification
+    * typeid(my_obj).name() == "Base"
+
+enum:
+    * enum class Color { red, green = 20, blue };
+      Color r = Color::blue;
+    * if you use class keyword along with enum, then it must be scoped
+
+using keyword:
+    * "inject" variables and functions from one scope to another
+
+unordered_set of objects:
+    *  the statement size_t xHash = std::hash<int>()(point.x) first creates an instance of the
+       std::hash<int> functor using the default constructor, and then immediately calls its
+       operator() method with the argument point.x. The resulting value is stored in the xHash variable.
+    * see Unordered_Set.cpp
+
+rvalue:
+    * The function, void printCity(std::string&& city), accepts an rvalue reference to a
+      std::string object as its argument. This means that the function can modify the contents
+      of the string and can also move the string object. This is useful if you want to modify
+      the string or transfer ownership of the string to the function.
+    * to convert an lvalue to rvalue we use std::move(variable)
+    * Using std::move can be more efficient than copying the object, especially when dealing
+      with large objects like vectors, strings, or complex objects with a lot of data. However,
+      it's important to note that using std::move should be done with caution, and only when
+      you are sure that the object being moved from will not be used again. Otherwise, you
+      could end up with bugs and unexpected behavior in your code.
+
+lvalue vs rvalue of function calls:
+    *  In C++, if the return type of a function is a value (i.e., not a reference or a pointer),
+       the result of the function call is an rvalue. This is because the value returned by the
+       function is a temporary object that has no name or identity beyond its immediate use in the expression.
+    * However, if the return type of a function is a reference or a pointer, the result of the function call
+      is an lvalue, because the reference or pointer returned by the function has a name and an identity.
+
+To Do:
+1
+4
+6
+11
+--------------------------------------------------------------------------------------------------

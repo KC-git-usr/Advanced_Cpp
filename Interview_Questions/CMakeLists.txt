@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.21)
+project(Interview_Questions)
+
+set(CMAKE_CXX_STANDARD 11)
+
+add_executable(Interview_Questions main.cpp)
+add_executable(Tesla Tesla.cpp)
+add_executable(Apple Apple.cpp)
+add_executable(BFS BFS.cpp)
+add_executable(DFS DFS.cpp)
+add_executable(Templates Templates.cpp)
+add_executable(Priority_Queue Priority_Queue.cpp)
+add_executable(STL STL.cpp)
+add_executable(Leetcode Leetcode.cpp)
+add_executable(IKM IKM.cpp)
+add_executable(Unordered_Set Unordered_Set.cpp)
