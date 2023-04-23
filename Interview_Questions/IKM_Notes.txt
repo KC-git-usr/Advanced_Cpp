@@ -38,6 +38,10 @@ try-throw-catch:
     catch (char param) { cout << "char exception"; }
     catch (...) { cout << "default exception"; }
 
+    * the order of the catch blocks matter, runtime search-matching happens from top to bottom
+    * each catch block can have only one parameter
+    * catch blocks should be ordered from the most specific to the most general
+
 * In C++, all statements that are not declarations or definitions need to be inside functions or blocks.
 * For instance, you cannot initialize a variable after declaring it, in different lines, outside a function/block
 
@@ -68,6 +72,10 @@ enum:
     * enum class Color { red, green = 20, blue };
       Color r = Color::blue;
     * if you use class keyword along with enum, then it must be scoped
+    * when declaring a var of an enum type:
+        * the keyword 'enum' before the enum type (Color) is optional: enum Color c1 == Color c1
+        * the scope resolution operator is also optional: enum Color c1 = Color::blue == blue
+        * (but still mandatory if class keyword was used)
 
 using keyword:
     * "inject" variables and functions from one scope to another
@@ -77,6 +85,54 @@ unordered_set of objects:
        std::hash<int> functor using the default constructor, and then immediately calls its
        operator() method with the argument point.x. The resulting value is stored in the xHash variable.
     * see Unordered_Set.cpp
+
+virtual functions:
+    * can a base class constructor call a pure virtual member function?
+    * Yes, a base class constructor can call a pure virtual member function. However, the pure virtual
+      function in the base class must be defined in a derived class, as the base class itself does not
+      provide an implementation for it. The derived class implementation of the pure virtual function
+      will be called, not the base class implementation, as long as the derived class has provided
+      an implementation for it.
+    * It is important to note that if the pure virtual function is called within the base class
+      constructor, and the derived class has not yet been constructed, it will lead to undefined
+      behavior. Therefore, it is generally recommended to avoid calling pure virtual functions
+      from constructors.
+    * can non-virtual functions call virtual functions?
+    * Yes, non-virtual functions can call virtual functions. However, the behavior of virtual
+      functions depends on the actual type of the object at runtime, which may not be known
+      to the non-virtual function. Therefore, it is generally recommended to use virtual functions
+      only through pointers or references to objects, which can ensure that the correct function is
+      called for the actual object type.
+    * can virtual private member functions of a base class be over-ridden by derived class member functions?
+    * No, virtual private member functions of a base class cannot be overridden by derived
+      class member functions. Virtual functions can be overridden by the derived class, but only if
+      they are declared as public or protected. Private members of a class are not accessible outside
+      the class, so even if a virtual function is marked as private in the base class, it cannot be
+      overridden in a derived class.
+
+    * constructors cannot be declared virtual
+
+lvalue and rvalue:
+    * ------------------------------------
+    * int x = 10;  // valid
+    * int& y = x;  // valid
+    * int& y = 10  // invalid, because reference must point to an lvalue
+    * const int& y = 10;  // valid, this is an exception
+    * ------------------------------------
+    * int x = 10, y = 20;
+    * int z = x + y;
+    * x, y and z are lvalues, but the expression x + y is a rvalue
+    * ------------------------------------
+    * void func(const string& input);  // accepts both lvalue and rvalue
+    * string first = "Kumar", second = "Ramesh";
+    * func(first + second);  // combing both the above concepts
+
+    * lvaue references can only accept lvalues
+    * const lvalue references can accept both lvalue and rvalue
+
+    * void func(const string&& input);
+    * // accepts only rvalue objects, this also has higher priority when input is rvalue compared to the above func
+
 
 rvalue:
     * The function, void printCity(std::string&& city), accepts an rvalue reference to a
@@ -89,6 +145,7 @@ rvalue:
       it's important to note that using std::move should be done with caution, and only when
       you are sure that the object being moved from will not be used again. Otherwise, you
       could end up with bugs and unexpected behavior in your code.
+    * to create a temporary object, a default parameterized constructor must be defined, else compilation error
 
 lvalue vs rvalue of function calls:
     *  In C++, if the return type of a function is a value (i.e., not a reference or a pointer),
@@ -97,9 +154,25 @@ lvalue vs rvalue of function calls:
     * However, if the return type of a function is a reference or a pointer, the result of the function call
       is an lvalue, because the reference or pointer returned by the function has a name and an identity.
 
+new keyword:
+    * just like how this is valid: Employee* emp_1 = new Employee;
+    * so is this: int* iptr = new int;
+
+rule of three:
+    * Overloaded assignment, (deep) copy constructor, (deep) destructor
+
+overloading insertion operator:
+    * std::ostream& operator<<(const std::ostream& os, const Foo& obj) {
+        os << obj.x << ", " << obj.y << std::endl;
+    }
+
 To Do:
 1
 4
 6
 11
+copy constructor
+copy assignment
+move constructor
+move assignment
 --------------------------------------------------------------------------------------------------
