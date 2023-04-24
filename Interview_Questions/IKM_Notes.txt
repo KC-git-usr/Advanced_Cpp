@@ -112,6 +112,18 @@ virtual functions:
 
     * constructors cannot be declared virtual
 
+const pointers:
+    * const int* iptr == int const* iptr, iptr cannot change the underlying value
+    * int* const iptr, iptr cannot point to a new reference
+
+extern keyword:
+    * https://learn.microsoft.com/en-us/cpp/cpp/extern-cpp?view=msvc-170
+
+static members:
+    * A static member variable or function of a class should be defined outside the class definition
+      in a source file, .cpp file. The definition should use the scope resolution
+      operator (::) to specify the class to which the static member belongs. This applies even if they are private.
+
 lvalue and rvalue:
     * ------------------------------------
     * int x = 10;  // valid

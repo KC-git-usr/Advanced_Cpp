@@ -129,6 +129,22 @@ void printCity(std::string&& city) {
 // lvalue vs rvalue end
 
 
+// for_each start
+struct Increment {
+    // Note : return type is void
+    void operator()(int& input) {
+        input *= 2;
+    }
+}functor_obj;
+
+// Note : return type is void
+// and the input type is the type of the de-referenced iterator
+void multiplier(int& input) {
+    input *= 2;
+}
+// for_each end
+
+
 
 int main() {
     std::cout<<"Hello from main"<<std::endl;
@@ -194,11 +210,26 @@ int main() {
     }
 
     // lvalue vs rvalue
-    if(true) {
+    if(false) {
         std::string my_city = getCity(false);
         printCity(my_city);
         printCity(std::move(my_city));
         printCity(getCity(true));
+    }
+
+    // for_each
+    if(true) {
+        std::vector<int> my_vec {1, 2, 3, 4};
+        // functor, note we are passing the object
+        std::for_each(my_vec.begin(), my_vec.end(), functor_obj);
+        for(const int& x : my_vec)
+            std::cout << x << " ";
+        std::cout << std::endl;
+        // function
+        std::for_each(my_vec.begin(), my_vec.end(), multiplier);
+        for(const int& x : my_vec)
+            std::cout << x << " ";
+        std::cout << std::endl;
     }
 
 }
