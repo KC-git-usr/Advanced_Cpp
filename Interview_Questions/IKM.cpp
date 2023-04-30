@@ -114,6 +114,7 @@ public:
 };
 // enum end
 
+
 // lvalue vs rvalue start
 std::string getCity(bool c) {
     return (c ? "Chicago" : "New York");
@@ -143,6 +144,34 @@ void multiplier(int& input) {
     input *= 2;
 }
 // for_each end
+
+
+// pure virtual function start
+class Class_Foo {
+public:
+    Class_Foo() {
+        std::cout << "Called Class Foo ctor" << std::endl;
+    }
+
+    // To make it a pure virtual func, it has to be assigned to 0
+    virtual void my_virtual_func() = 0;
+
+    virtual ~Class_Foo() {}
+};
+
+class Class_Bar : public Class_Foo{
+public:
+    Class_Bar() {
+        std::cout << "Called Class Bar ctor" << std::endl;
+    }
+
+    void my_virtual_func() override {
+        std::cout << "Called my_virtual_func from base class" << std::endl;
+    }
+
+    virtual ~Class_Bar() {}
+};
+// pure virtual function end
 
 
 
@@ -198,6 +227,7 @@ int main() {
         std::cout << typeid( pd ).name() << std::endl;   //prints "class Derived *"
         std::cout << typeid( *pd ).name() << std::endl;   //prints "class Derived"
         delete pd;
+        pb = nullptr;
     }
 
     // enum keyword
@@ -207,6 +237,7 @@ int main() {
         f2.weight = 14;
         f1.season = 'S';
         f2.setVariety(Apple::Fuji);
+        f2.setVariety(Apple::variety::Gala);
     }
 
     // lvalue vs rvalue
@@ -218,10 +249,11 @@ int main() {
     }
 
     // for_each
-    if(true) {
+    if(false) {
         std::vector<int> my_vec {1, 2, 3, 4};
         // functor, note we are passing the object
-        std::for_each(my_vec.begin(), my_vec.end(), functor_obj);
+        std::for_each(my_vec.begin(), my_vec.end(), functor_obj);  // passing the functor obj
+        std::for_each(my_vec.begin(), my_vec.end(), Increment());  // passing a temp functor obj
         for(const int& x : my_vec)
             std::cout << x << " ";
         std::cout << std::endl;
@@ -230,6 +262,13 @@ int main() {
         for(const int& x : my_vec)
             std::cout << x << " ";
         std::cout << std::endl;
+    }
+
+    // virtual function
+    if(false) {
+        //  Class_Foo obj_foo;  // invalid
+        Class_Bar obj_bar;
+        obj_bar.my_virtual_func();
     }
 
 }
