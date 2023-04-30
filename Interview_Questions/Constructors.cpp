@@ -29,6 +29,7 @@ public:
         this->x_ = rhs.x_;
         this->s_ = new std::string(*rhs.s_);
         std::cout << "Assignment constructor called" << std::endl;
+        return *this;
     }
 
     Foo(Foo&& input) : x_(std::move(input.x_)), s_(std::move(input.s_)) {
