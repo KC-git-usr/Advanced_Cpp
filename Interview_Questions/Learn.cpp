@@ -241,7 +241,7 @@ int main()
 */
 
 
-/*
+
 //local static and Singleton class
 #include <iostream>
 
@@ -264,7 +264,7 @@ int main()
 	Singleton::Get().Function();
 	std::cin.get();
 }
-*/
+
 
 
 /*
