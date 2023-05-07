@@ -166,12 +166,63 @@ lvalue vs rvalue of function calls:
     * However, if the return type of a function is a reference or a pointer, the result of the function call
       is an lvalue, because the reference or pointer returned by the function has a name and an identity.
 
+copy elision:
+    * https://stackoverflow.com/questions/12953127/what-are-copy-elision-and-return-value-optimization/12953150#12953150
+    * Copy elision is an optimization technique used by compilers to eliminate unnecessary copy or move operations when
+      creating objects. It can be particularly useful in cases where objects are expensive to copy or move, such as
+      large data structures or objects that perform I/O or network operations.
+
+      Here are some examples of situations where copy elision can be useful:
+
+      1. Returning objects from functions: If a function returns an object, the copy constructor is
+         typically called to create a copy of the object. However, if the object is created in the return
+         statement, the compiler can often optimize away the copy constructor call using copy elision.
+
+        ```
+        MyObject func() {
+          MyObject obj;
+          // do some work with obj
+          return obj; // copy elision can be used here
+        }
+        ```
+
+      2. Pass-by-value function parameters: If a function takes an object as a parameter, the copy constructor
+         is typically called to create a copy of the object. However, if the object is constructed in the call
+         site, the compiler can often optimize away the copy constructor call using copy elision.
+
+        ```
+        void func(MyObject obj) {
+          // do some work with obj
+        }
+
+        MyObject obj;
+        func(obj); // copy elision can be used here
+        ```
+
+      3. Initializing objects from temporary objects: If an object is initialized from a temporary object, the
+         copy constructor or move constructor is typically called to create a copy or move the temporary object.
+         However, if the temporary object is created in the initialization statement, the compiler can often
+         optimize away the copy or move constructor call using copy elision.
+
+        ```
+        MyObject obj = MyObject(); // copy elision can be used here
+        MyObject obj = func(); // copy elision can be used here if func returns a MyObject
+        ```
+
+        In summary, copy elision can be useful in situations where objects are expensive to copy or move, such
+        as when returning objects from functions, passing objects by value to functions, or initializing objects
+        from temporary objects.
+
 new keyword:
     * just like how this is valid: Employee* emp_1 = new Employee;
     * so is this: int* iptr = new int;
 
 rule of three:
-    * Overloaded assignment, (deep) copy constructor, (deep) destructor
+    * (deep) copy constructor, (deep) copy assignment constructor, (deep) destructor
+
+rule of five:
+    * (deep) copy constructor, (deep) copy assignment constructor, move ctor, move assignment ctor ,(deep) destructor
+    * https://en.cppreference.com/w/cpp/language/rule_of_three
 
 overloading insertion operator:
     * std::ostream& operator<<(const std::ostream& os, const Foo& obj) {
