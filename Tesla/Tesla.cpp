@@ -201,7 +201,7 @@ public:
         cout << "Called parameterized ctor" << endl;
     }
 
-    virtual int getID() {
+    virtual int getID() {  // virtual not necessary, since we have only 1 implementation
         return this->id_;
     }
 
