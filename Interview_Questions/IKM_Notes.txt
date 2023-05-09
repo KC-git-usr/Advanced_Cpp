@@ -123,6 +123,8 @@ static members:
     * A static member variable or function of a class should be defined outside the class definition
       in a source file, .cpp file. The definition should use the scope resolution
       operator (::) to specify the class to which the static member belongs. This applies even if they are private.
+    * A static member function cannot access non-static members and do not have access to the this pointer
+    * A static member function cannot be declared const
 
 lvalue and rvalue:
     * ------------------------------------
