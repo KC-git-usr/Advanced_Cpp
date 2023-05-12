@@ -33,34 +33,41 @@ char Bit_clear(unsigned char* value, unsigned char bit_number) {
     while(bit_number-- > 0)
         mask <<= 1;
 
-    return (mask ^ *value);
+    mask = ~mask;
+
+    return (mask & *value);
 }
 
 
 int main() {
     unsigned char input_value_1 = 0b00001001;
     unsigned char input_bit_number_1 = 3;
+    unsigned char input_value_2 = 0b00001011;
+    unsigned char input_bit_number_2 = 2;
     std::bitset<8> x;
 
     x = Bit_get(&input_value_1, input_bit_number_1);
     std::cout << "O/P of Bit_get : " << x << std::endl;
 
-    x = Bit_set(&input_value_1, input_bit_number_1);
-    std::cout << "O/P of Bit_set : " << x << std::endl;
-
-    x = Bit_clear(&input_value_1, input_bit_number_1);
-    std::cout << "O/P of Bit_set : " << x << std::endl;
-
-    unsigned char input_value_2 = 0xf;
-    unsigned char input_bit_number_2 = 3;
-
-    x = Bit_get(&input_value_2, input_bit_number_2);
-    std::cout << "O/P of Bit_get : " << x << std::endl;
-
-    x = Bit_set(&input_value_2, input_bit_number_2);
+    x = Bit_set(&input_value_1, input_bit_number_2);
     std::cout << "O/P of Bit_set : " << x << std::endl;
 
     x = Bit_clear(&input_value_2, input_bit_number_2);
+    std::cout << "O/P of Bit_clear : " << x << std::endl;
+
+    x = Bit_clear(&input_value_2, input_bit_number_1);
+    std::cout << "O/P of Bit_clear : " << x << std::endl;
+
+    unsigned char input_value_3 = 0xf;
+    unsigned char input_bit_number_3 = 3;
+
+    x = Bit_get(&input_value_3, input_bit_number_3);
+    std::cout << "O/P of Bit_get : " << x << std::endl;
+
+    x = Bit_set(&input_value_3, input_bit_number_3);
+    std::cout << "O/P of Bit_set : " << x << std::endl;
+
+    x = Bit_clear(&input_value_3, input_bit_number_3);
     std::cout << "O/P of Bit_set : " << x << std::endl;
 
     int right;
