@@ -42,6 +42,11 @@ public:
 
 
 // this keyword start
+/*
+ * If you had a function that returned this, it would be a pointer to the
+ * current object, while a function that returned *this would be
+ * a "clone" of the current object, allocated on the stack -- unless you have
+ * specified the return type of the method to return a reference.*/
 class Foo {
 public:
     Foo() {
