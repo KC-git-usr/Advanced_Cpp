@@ -17,7 +17,7 @@
 #include <vector>
 
 
-// Simple Algorithm
+// Simple Algorithm start
 void simpleAlgorithm(int n) {
     int steps = 0;
     while(n != 1) {
@@ -31,9 +31,10 @@ void simpleAlgorithm(int n) {
 
     std::cout << "Number of steps: " << steps << std::endl;
 }
+// Simple Algorithm end
 
 
-// One Edit Away
+// One Edit Away start
 bool oneEditAway(const std::string& s1, const std::string& s2) {
     int ptr_1 = 0, ptr_2 = 0, diff = 0;
     while(ptr_1 < s1.length() && ptr_2 < s2.length()) {
@@ -65,9 +66,10 @@ bool oneEditAway(const std::string& s1, const std::string& s2) {
 
     return (diff > 1) ? false : ((diff == 0) ? false : true);
 }
+// One Edit Away end
 
 
-// Supermarket queue
+// Supermarket queue start
 // Idea:
 // Maintain a queue for each terminal and each terminal cumulative waiting time
 // if any terminal empty, then add person to that terminal queue
@@ -111,9 +113,10 @@ long queueTime(std::vector<int> customers,int n){
 
     return *std::max_element(queues.cbegin(), queues.cend());
 }
+// Supermarket queue end
 
 
-// min sum in N operations
+// min sum in N operations start
 int minSum(const std::vector<int>& input, const int& k) {
     int sum = 0, n = k;
     std::priority_queue<int, std::vector<int>, std::less<int>> my_pq (input.begin(), input.end(), std::less<int>());
@@ -135,6 +138,33 @@ int minSum(const std::vector<int>& input, const int& k) {
 
     return sum;
 }
+// min sum in N operations end
+
+
+// Template specialization start
+class Player {
+private:
+    int m_age;
+public:
+    Player(int age) : m_age(age) {}
+    int getAge() {
+        return this->m_age;
+    }
+    bool operator<(const Player& input) {
+        return this->m_age < input.m_age;
+    }
+};
+
+template<typename T>
+T minimum(T a, T b) {
+    return (a < b) ? a : b;
+}
+
+template<>
+Player minimum(Player a, Player b) {
+    return (a < b) ? a : b;
+}
+// Template specialization end
 
 
 int main() {
@@ -191,7 +221,7 @@ int main() {
     }
 
     // min sum
-    if(true) {
+    if(false) {
         std::vector<std::vector<int>> test_input_list {
                 {10,5,7,20}
         };
@@ -201,5 +231,13 @@ int main() {
         for (int i = 0; i < 1; ++i) {
             std::cout << minSum(test_input_list[i], test_input_k[i]) << std::endl;
         }
+    }
+
+    // Template specialization
+    if (true) {
+        std::cout << minimum(3, 6) << std::endl;
+        Player obj_1 {25};
+        Player obj_2 {27};
+        std::cout << minimum(obj_1, obj_2).getAge() << std::endl;
     }
 }
