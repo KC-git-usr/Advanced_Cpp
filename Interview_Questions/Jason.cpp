@@ -6,9 +6,12 @@
 // TIL : iterators of containers when dereferenced, change the underlying value too (returns a reference)
 //       for example: *std::max_element(my_vec.begin(), my_vec.end()) = -1; will set the max element
 //       in the original container to -1
+// TIL : Time complexity of priority queue: building pq from an existing data is O(n)
+//       But building pq by inserting data element by element is O(n*log(n)), a.k.a. maintaining a pq
 
 #include <algorithm>
 #include <iostream>
+#include <math.h>
 #include <queue>
 #include <string>
 #include <vector>
@@ -110,6 +113,30 @@ long queueTime(std::vector<int> customers,int n){
 }
 
 
+// min sum in N operations
+int minSum(const std::vector<int>& input, const int& k) {
+    int sum = 0, n = k;
+    std::priority_queue<int, std::vector<int>, std::less<int>> my_pq (input.begin(), input.end(), std::less<int>());
+
+    int element;
+    while(n--) {
+        element = my_pq.top();
+        my_pq.pop();
+        element = std::ceil(element / 2);
+        my_pq.push(element);
+    }
+
+    n = k;
+    while (n--) {
+        element = my_pq.top();
+        my_pq.pop();
+        sum += element;
+    }
+
+    return sum;
+}
+
+
 int main() {
 
     // Simple Algorithm
@@ -161,5 +188,18 @@ int main() {
         std::cout << *std::max_element(my_vec.begin(), my_vec.end()) << std::endl;
         *std::max_element(my_vec.begin(), my_vec.end()) = -1;
         std::cout << *std::min_element(my_vec.begin(), my_vec.end()) << std::endl;
+    }
+
+    // min sum
+    if(true) {
+        std::vector<std::vector<int>> test_input_list {
+                {10,5,7,20}
+        };
+        std::vector<int> test_input_k {
+            4
+        };
+        for (int i = 0; i < 1; ++i) {
+            std::cout << minSum(test_input_list[i], test_input_k[i]) << std::endl;
+        }
     }
 }
