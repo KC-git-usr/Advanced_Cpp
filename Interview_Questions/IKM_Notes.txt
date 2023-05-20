@@ -215,6 +215,13 @@ copy elision:
         as when returning objects from functions, passing objects by value to functions, or initializing objects
         from temporary objects.
 
+vtable and vptr:
+    * A virtual table contains one entry for each virtual function that can be called by objects of the class.
+    * Each entry in this table is simply a function pointer that points to the most-derived function
+      accessible by that class.
+    * *__vptr is inherited by derived classes, which is important.
+    * Additional reading: https://www.learncpp.com/cpp-tutorial/the-virtual-table/
+
 new keyword:
     * just like how this is valid: Employee* emp_1 = new Employee;
     * so is this: int* iptr = new int;
