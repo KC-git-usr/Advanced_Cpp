@@ -36,3 +36,53 @@ The choice between a multi-process or multi-threaded approach depends on factors
 problem, the desired level of isolation and resource sharing, the need for scalability, and the programming
 language and frameworks being used. Each approach has its own advantages and considerations, and the decision
 should be based on the specific requirements of the application.
+
+------------------------------------------------------------------------------------------------------------------------
+
+Concurrency and parallelism are related concepts that involve executing multiple tasks simultaneously,
+but they differ in their underlying principles and goals:
+
+Concurrency:
+Concurrency refers to the ability of a system to handle multiple tasks concurrently. It allows for the
+overlapping execution of multiple tasks, where progress is made on each task in a non-deterministic manner.
+Concurrency is typically achieved by interleaving the execution of tasks through context switching or time-slicing.
+The focus of concurrency is on efficient resource utilization and responsiveness, enabling programs to make progress
+on multiple tasks even if they are not executing simultaneously. Concurrency is particularly useful when dealing with
+I/O operations, event-driven systems, or when there are multiple independent tasks that can execute concurrently.
+
+Parallelism:
+Parallelism involves simultaneously executing multiple tasks in parallel on multiple processors or cores to achieve
+higher performance and speedup. It is about dividing a larger task into smaller subtasks and executing them
+concurrently to complete the overall task faster. Parallelism requires true simultaneous execution of tasks, either
+through multi-core processors or distributed systems. The goal of parallelism is to maximize throughput and achieve
+faster execution times by harnessing the computational power of multiple resources. It is commonly used in
+computationally intensive tasks, such as numerical computations, data processing, and simulations.
+
+In summary, concurrency focuses on the efficient handling of multiple tasks and responsiveness, while parallelism
+aims at achieving faster execution by simultaneously utilizing multiple processors or cores. Concurrency is about
+managing and coordinating tasks that may be executed concurrently but not necessarily in true parallel, whereas
+parallelism involves the true simultaneous execution of tasks to achieve performance gains. Both concepts are
+important in modern computing, and they can be combined to optimize performance in various scenarios.
+
+------------------------------------------------------------------------------------------------------------------------
+
+Time-slicing is a technique used in operating systems and multitasking environments to achieve the illusion of
+concurrent execution on a single processor. It allows multiple tasks or processes to share the CPU time in a
+time-shared manner, giving each task a slice of time to execute before switching to another task.
+
+In a time-sliced system, the CPU is divided into small time intervals called time slices or time quanta.
+Each task or process is allocated a time slice during which it can execute. The operating system interrupts the
+currently executing task at the end of its time slice and switches to another task, giving it a chance to execute.
+This switching occurs rapidly, typically in milliseconds or microseconds, creating the illusion of concurrent execution.
+
+The main purpose of time-slicing is to provide fairness and equal opportunity to all tasks or processes to utilize
+the CPU. It prevents a single task from monopolizing the CPU and allows multiple tasks to make progress in a
+concurrent manner. By dividing the CPU time into small intervals and allocating them to different tasks, time-slicing
+enables multitasking and facilitates responsiveness in systems with multiple concurrent processes or threads.
+
+Time-slicing is typically implemented through the use of timers and interrupt-driven mechanisms in the operating system.
+The timer generates periodic interrupts, indicating that the current time slice is over, and the operating system
+scheduler takes control to switch to the next task in the queue.
+
+Overall, time-slicing is a fundamental technique used in modern operating systems to achieve the illusion of concurrent
+execution on a single processor and enable multitasking and responsiveness in systems with multiple tasks or processes.
