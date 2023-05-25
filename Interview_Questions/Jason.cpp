@@ -10,10 +10,13 @@
 //       But building pq by inserting data element by element is O(n*log(n)), a.k.a. maintaining a pq
 
 #include <algorithm>
+#include <bitset>
 #include <iostream>
 #include <math.h>
+#include <memory>
 #include <queue>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 
@@ -167,6 +170,46 @@ Player minimum(Player a, Player b) {
 // Template specialization end
 
 
+// Inheritance/Polymorphism Q start
+class Parent {
+public:
+    void print() {
+        std::cout << "Parent print function\n";
+    }
+    void invoke() {
+        std::cout << "Parent invoke function\n";
+        this->print();
+    }
+};
+
+class Child : public Parent {
+public:
+    void print() {
+        std::cout << "Child print function\n";
+    }
+    void invoke() {
+        std::cout << "Child invoke function\n";
+        this->print();
+    }
+};
+// Inheritance/Polymorphism Q end
+
+
+// Remove all duplicate integers start
+std::vector<int> removeDuplicates(std::vector<int> input) {
+    std::unordered_set<int> hash_set;
+    int ptr_fetch = 0;
+    for(int i = 0; i < input.size(); ++i) {
+        if(hash_set.find(input[i]) == hash_set.end()) {
+            hash_set.insert(input[i]);
+            input[ptr_fetch++] = input[i];
+        }
+    }
+    return input;
+}
+// Remove all duplicate integers end
+
+
 int main() {
 
     // Simple Algorithm
@@ -234,10 +277,43 @@ int main() {
     }
 
     // Template specialization
-    if (true) {
+    if (false) {
         std::cout << minimum(3, 6) << std::endl;
         Player obj_1 {25};
         Player obj_2 {27};
         std::cout << minimum(obj_1, obj_2).getAge() << std::endl;
+    }
+
+    // Inheritance/Polymorphism Q
+    if (false) {
+        std::unique_ptr<Parent> p(new Child());
+        p->invoke();
+    }
+
+    // Memset from cpp-reference docs
+    if (false){
+        int x = 0b111100000011;
+        std::cout << x << std::endl;
+        unsigned char y = static_cast<unsigned char>(0b111100000011);
+        std::cout << y << std::endl;
+        std::bitset<8> z(y);
+        std::cout << z << std::endl;
+    }
+
+    // Remove Duplicates
+    if (false) {
+        std::vector<std::vector<int>> test_input {
+                {10,5,7,20},
+                {7,4,1,6,7,4,2},
+                {7,7,1,6,7,4,2},
+                {7,1,6,7,4,4},
+                {7,1,6,6,4,5},
+        };
+        for (int i = 0; i < test_input.size(); ++i) {
+            auto result = removeDuplicates(test_input[i]);
+            for(const auto& ele : result)
+                std::cout << ele << " ";
+            std::cout << std::endl;
+        }
     }
 }
