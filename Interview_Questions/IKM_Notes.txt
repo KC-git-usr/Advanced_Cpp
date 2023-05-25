@@ -23,6 +23,9 @@ Types of constructors: (memorize these)
             Foo(const Foo& rhs) = delete;  // delete copy constructor
             Foo& operator=(const Foo& rhs) = delete;  // delete copy assignment constructor
     };
+    * Why can't I define a copy constructor that accepts an argument by value?
+    * Leads to an infinite recursive loop, as each invocation of the copy constructor calls the copy
+      constructor again and again, leading to a stack overflow and a program crash.
 
 mutable keyword:
     * A lambda function, which is not declared mutable, cannot capture an external variable by value
