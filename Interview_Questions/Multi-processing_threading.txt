@@ -1,0 +1,38 @@
+The main difference between a multi-process and a multi-threaded approach lies in
+how concurrent execution is achieved:
+1. Multi-process: In a multi-process approach, multiple processes are created, each having its own memory
+   space and resources. Each process runs independently and can execute different parts of the program simultaneously.
+   Processes communicate with each other through inter-process communication (IPC) mechanisms, such as pipes, sockets,
+   or shared memory. Each process has its own copy of the program code and data, and they are isolated from each other,
+   providing strong separation and protection. However, the overhead of process creation and IPC can be higher
+   compared to threads.
+
+2. Multi-threaded: In a multi-threaded approach, multiple threads are created within a single process. Threads share
+  the same memory space, file descriptors, and other process resources. They run concurrently within the process and
+  can communicate and share data more easily than processes, as they can directly access shared memory. Threads are
+  lighter-weight compared to processes, as they don't require separate memory spaces. However, care must be taken to
+  properly synchronize access to shared resources to avoid data races or other concurrency issues.
+
+Here are some key differences between the two approaches:
+- Memory and resources: In a multi-process approach, each process has its own memory space and resources, while in a
+  multi-threaded approach, threads share the same memory space and resources within a process.
+
+- Communication: Processes communicate through IPC mechanisms, while threads can communicate more efficiently through
+  shared memory and direct function calls.
+
+- Context switching: Switching between processes involves more overhead due to the need to save and restore the entire
+  process state. Thread context switching within a process is faster because it involves switching between
+  thread-specific execution contexts within the same memory space.
+
+- Isolation: Processes are isolated from each other, meaning that a crash or error in one process does not affect
+  others. In contrast, threads within a process share the same memory space, so an error in one thread can potentially
+  affect the entire process.
+
+- Scalability: Multi-threading can be more efficient in terms of resource usage since it avoids the overhead of
+  creating and managing multiple processes. However, multi-threaded programs need to carefully handle
+  synchronization and avoid data races.
+
+The choice between a multi-process or multi-threaded approach depends on factors such as the nature of the
+problem, the desired level of isolation and resource sharing, the need for scalability, and the programming
+language and frameworks being used. Each approach has its own advantages and considerations, and the decision
+should be based on the specific requirements of the application.
