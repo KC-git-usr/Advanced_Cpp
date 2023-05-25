@@ -293,6 +293,24 @@ Even though destructors are not inherited, if a base class declares its destruct
 the derived destructor always overrides it. This makes it possible to delete dynamically allocated
 objects of polymorphic type through pointers to base.
 
+Ways to communicate between two separate processes (locally on the same computer)?
+    1. Inter-Process Communication (IPC) mechanisms:
+        Shared Memory
+        Message Queues
+    2. Files
+    3. Signals
+        Signals can be used to notify processes about events or to request attention.
+        One process can send a signal to another process, and the receiving process can handle the signal accordingly.
+    4. Remote Procedure Calls (RPC)
+
+Ways to communicate between two separate processes (remote on different computers)?
+    1. Sockets
+        TCP/IP or UDP protocols
+    2. Remote Procedure Calls (RPC)
+    3. Message Queuing Systems
+        Message queuing systems provide a distributed messaging infrastructure where
+        processes can send and receive messages asynchronously.
+
 
 --------------------------------------------------------------------------------------------------
 
