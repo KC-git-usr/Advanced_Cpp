@@ -210,6 +210,26 @@ std::vector<int> removeDuplicates(std::vector<int> input) {
 // Remove all duplicate integers end
 
 
+// All permutations of string start
+void dfs(std::string& input, int start) {
+    if (start == input.size()) {
+        std::cout << input << std::endl;
+        return;
+    }
+    for (size_t i = start; i < input.size(); i++) {
+        std::swap(input[i], input[start]);
+        dfs(input, start + 1);
+        std::swap(input[i], input[start]);
+    }
+}
+
+void permute(std::string input) {
+    std::string copy(input);
+    dfs(copy, 0);
+}
+// All permutations of string end
+
+
 int main() {
 
     // Simple Algorithm
@@ -314,6 +334,18 @@ int main() {
             for(const auto& ele : result)
                 std::cout << ele << " ";
             std::cout << std::endl;
+        }
+    }
+
+    // All permutations of string
+    if (true) {
+        std::vector<std::string> test_input {
+                {"abc"},
+                {"kum"}
+        };
+        for(size_t i = 0; i < test_input.size(); ++i) {
+            permute(test_input[i]);
+            std::cout << "-------------" << std::endl;
         }
     }
 }
