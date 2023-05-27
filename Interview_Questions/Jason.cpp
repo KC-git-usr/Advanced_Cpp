@@ -3,7 +3,7 @@
 //
 
 // TIL : return type of function used in for_each MUST be void
-// TIL : iterators of containers when dereferenced, change the underlying value too (returns a reference)
+// TIL : iterators of containers when dereferenced, change the underlying value too (returns a non-const pointer)
 //       for example: *std::max_element(my_vec.begin(), my_vec.end()) = -1; will set the max element
 //       in the original container to -1
 // TIL : Time complexity of priority queue: building pq from an existing data is O(n)
