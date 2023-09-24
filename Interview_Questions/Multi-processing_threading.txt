@@ -86,3 +86,32 @@ scheduler takes control to switch to the next task in the queue.
 
 Overall, time-slicing is a fundamental technique used in modern operating systems to achieve the illusion of concurrent
 execution on a single processor and enable multitasking and responsiveness in systems with multiple tasks or processes.
+
+------------------------------------------------------------------------------------------------------------------------
+Explain Intra-process synchronization and Inter-process synchronization
+
+Intra-process synchronization and inter-process synchronization are two concepts related to managing concurrent access to shared resources in a single process or across multiple processes, respectively.
+
+1. Intra-process Synchronization:
+Intra-process synchronization refers to the coordination and control of concurrent execution within a single process. It involves synchronizing threads or tasks within the same process to ensure that they access shared resources in a mutually exclusive and coordinated manner. The primary goal is to prevent race conditions, data inconsistencies, and conflicts that can arise when multiple threads or tasks access shared data simultaneously.
+
+Common mechanisms used for intra-process synchronization include:
+
+- Mutex (Mutual Exclusion): A mutex is a synchronization primitive that allows only one thread or task to access a shared resource at a time. It provides exclusive access and protects critical sections of code from concurrent execution.
+
+- Semaphore: A semaphore is a synchronization object that controls access to a shared resource with a specified number of permits. It allows multiple threads or tasks to enter the critical section, but with a defined limit on the maximum concurrency.
+
+- Condition Variable: A condition variable enables threads or tasks to wait until a certain condition is met before proceeding. It allows for efficient thread blocking and signaling, enabling synchronization based on specific conditions.
+
+2. Inter-process Synchronization:
+Inter-process synchronization involves coordinating and synchronizing concurrent execution across multiple independent processes running on the same computer or on different computers in a distributed system. It focuses on managing shared resources and ensuring consistent and coordinated access among different processes.
+
+Since processes have their own address spaces and do not share memory directly, inter-process synchronization requires the use of operating system-provided mechanisms and techniques. Some commonly used inter-process synchronization mechanisms include:
+
+- Semaphores: Inter-process semaphores are similar to intra-process semaphores but can be used for synchronization across different processes. They provide a mechanism for controlling access to shared resources and enforcing mutual exclusion between processes.
+
+- Message Passing: Processes can communicate and synchronize by exchanging messages through mechanisms such as pipes, message queues, sockets, or shared memory. Proper synchronization protocols need to be established to ensure correct message ordering and mutual exclusion when accessing shared data.
+
+- Shared Memory: Processes can share a region of memory, allowing them to directly access and manipulate shared data. Synchronization mechanisms like mutexes, semaphores, or condition variables are used to coordinate access to shared memory and avoid data races.
+
+Inter-process synchronization is essential in scenarios where multiple processes need to coordinate their actions, exchange data, or cooperate in performing a task. It enables inter-process communication, data sharing, and mutual exclusion to ensure correctness and coherence across the distributed system.
