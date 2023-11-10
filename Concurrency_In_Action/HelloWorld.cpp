@@ -4,12 +4,12 @@
 #include <iostream>
 #include <thread>
 
-void hello() {
+void Hello() {
     std::cout << "Hello, World!" << std::endl;
 }
 
 int main() {
-    std::thread t(hello);
+    std::thread t(Hello);
     t.join();
 
     return 0;
