@@ -1,32 +1,43 @@
 #include <iostream>
 #include <thread>
 #include <vector>
+#include <unordered_map>
+#include <functional>
 
-void foo(const std::vector<std::thread::id>& thread_ids) {
-    if (std::this_thread::get_id() == thread_ids[0]) {
-        std::cout << "foo() was called by high priority thread, with id: " << std::this_thread::get_id() << std::endl;
+// Function foo that behaves differently based on the thread ID
+void foo(const std::unordered_map<std::thread::id, std::function<void()>>& actions) {
+    std::thread::id this_id = std::this_thread::get_id();
+    if (actions.find(this_id) != actions.end()) {
+        actions.at(this_id)();
+    } else {
+        std::cout << "No specific action for this thread." << std::endl;
     }
-    if (std::this_thread::get_id() == thread_ids[1]) {
-        std::cout << "foo() was invoked by low priority thread, with id: " << std::this_thread::get_id() << std::endl;
-    }
-}
-
-void EntryPoint(const std::vector<std::thread::id>& thread_ids) {
-    foo(thread_ids); // Passing thread_ids to foo
 }
 
 int main() {
-    // Placeholder threads to capture their IDs
-    std::thread placeholder1, placeholder2;
+    // Container for thread IDs
+    std::vector<std::thread::id> thread_ids;
+    // Map to associate thread IDs with specific actions
+    std::unordered_map<std::thread::id, std::function<void()>> actions;
 
-    // Capture thread IDs, index represents thread priority, lower index is higher priority
-    std::vector<std::thread::id> thread_ids{placeholder1.get_id(), placeholder2.get_id()};
+    // Define the threads
+    std::thread t1([&thread_ids, &actions]() {
+        thread_ids.push_back(std::this_thread::get_id());
+        actions[std::this_thread::get_id()] = []() {
+            std::cout << "foo() called from thread 1" << std::endl;
+        };
+        foo(actions);
+    });
 
-    // Create actual threads and pass thread_ids using a lambda
-    std::thread t1 ([&thread_ids]() { EntryPoint(thread_ids); });
-    std::thread t2 ([&thread_ids]() { EntryPoint(thread_ids); });
+    std::thread t2([&thread_ids, &actions]() {
+        thread_ids.push_back(std::this_thread::get_id());
+        actions[std::this_thread::get_id()] = []() {
+            std::cout << "foo() called from thread 2" << std::endl;
+        };
+        foo(actions);
+    });
 
-    // Join threads
+    // Wait for threads to finish
     t1.join();
     t2.join();
 
