@@ -23,7 +23,7 @@ Original Source: https://www.youtube.com/watch?v=Tof5pRedskI
   - not rt safe- every other STL container,
     - so reserve space to avoid memory allocation in the rt section
     - OR use the STL memory allocator:
-      - `std::pmr::monotonic_buffer_resource monotonic_buffer()` [see ss]
+      - `std::pmr::monotonic_buffer_resource monotonic_buffer()` [see ss 1](https://github.com/KC-git-usr/Advanced_Cpp/blob/main/Notes/CppCon/Images/Real-time%20Programming%20with%20the%20C%2B%2B%20Standard%20Library%20-%20Timur%20Doumler%20-%20CppCon%202021/IMG-20240129-WA0001.jpg) [see ss 2](https://github.com/KC-git-usr/Advanced_Cpp/blob/main/Notes/CppCon/Images/Real-time%20Programming%20with%20the%20C%2B%2B%20Standard%20Library%20-%20Timur%20Doumler%20-%20CppCon%202021/IMG-20240129-WA0002.jpg)
 - STL utilities:
     - `std::pair`, `std::tuple` (cause on stack) -> yes, rt safe
     - `std::optional` is just a value + a bool -> yes, rt safe
@@ -35,7 +35,7 @@ Original Source: https://www.youtube.com/watch?v=Tof5pRedskI
     - because they store the contents on the heap
 - Lambdas are sometimes rt-safe:
     - as long as you're not capturing strings by value or such
-    - care has to be taken here (see ss)
+    - care has to be taken here [see ss 3](https://github.com/KC-git-usr/Advanced_Cpp/blob/main/Notes/CppCon/Images/Real-time%20Programming%20with%20the%20C%2B%2B%20Standard%20Library%20-%20Timur%20Doumler%20-%20CppCon%202021/IMG-20240129-WA0003.jpg)
     - when passing a lambda function to a callback function, you should template that on the function type so that you're not paying for dynamic memory alloc
 - Synchronization primitives:
     - none of these are rt safe
