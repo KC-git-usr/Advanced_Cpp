@@ -1,0 +1,51 @@
+Original Source: https://www.youtube.com/watch?v=Tof5pRedskI
+# Notes:
+- Think of real-time software as a pipe, where:
+    - length of pipe = software latency
+    - width of pipe = bandwidth of software
+- In a real-time loop, never have blocking calls:
+    - don't try to acquire a mutex
+    - don't de/allocate memory
+    - don't do any I/O <----- we are breaking this rule
+    - don't interact w/ thread scheduler
+    - don't do any OS calls
+- don't call 3rd party code
+- don't use algo w/ > O(1) time complexity <--- I don't agree with this
+- don't use algo w/ amortized O(1) complexity [no hash-maps]
+- try-catch-throw introduces unwanted side-effects, never use them in real-time code
+- almost all STL algorithms are real-time safe, except
+  - `std::stable_sort`
+  - `std::stable_partition`
+  - `std::inplace_merge`
+  - `std::execution::parallel_*`
+- STL containers:
+  - rt safe- `std::array` (cause it's on stack)
+  - not rt safe- every other STL container,
+    - so reserve space to avoid memory allocation in the rt section
+    - OR use the STL memory allocator:
+      - `std::pmr::monotonic_buffer_resource monotonic_buffer()` [see ss]
+- STL utilities:
+    - `std::pair`, `std::tuple` (cause on stack) -> yes, rt safe
+    - `std::optional` is just a value + a bool -> yes, rt safe
+    - `std::variant` is just a union (on the stack) -> yes, rt safe
+    - (boost:variant is not rt safe)
+- Everything using type erasure is not rt safe
+    - `std::any`
+    - `std::function`
+    - because they store the contents on the heap
+- Lambdas are sometimes rt-safe:
+    - as long as you're not capturing strings by value or such
+    - care has to be taken here (see ss)
+    - when passing a lambda function to a callback function, you should template that on the function type so that you're not paying for dynamic memory alloc
+- Synchronization primitives:
+    - none of these are rt safe
+      - mutex
+      - timed_mutex
+      - recursive_mutex
+      - ...
+      - scoped_lock
+      - ...
+    - the only true primitive is `std::atomic`
+    - use `std::atomic` to build a lock-free queue
+    - use `static_assert(std::atomic<T>::is_always_lock_free);` to check
+    - use `std::atomic` to build a spinlock
