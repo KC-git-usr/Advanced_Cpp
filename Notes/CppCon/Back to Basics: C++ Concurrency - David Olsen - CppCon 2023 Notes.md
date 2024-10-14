@@ -1,0 +1,48 @@
+Original Source: https://www.youtube.com/watch?v=8rEGu20Uw4g
+# Notes:
+- Concurrency- multiple logical threads of execution with some inter-task dependencies
+  - requires some synchronization
+- Parallelism- multiple logical threads of execution with no inter-task dependencies
+- Parallelism should be preferred over Concurrency
+- C++ parallel algorithms (execution policies)
+  - `std::execution::seq`
+    - run sequentially, no parallelism
+  - `std::execution::par`, `std::execution::par_unseq`
+    - request compiler to run in parallel
+    - promise by user that code is safe to run in parallel, no data races
+  - `std::execution::unseq`, `std::execution::par_unseq`
+    - request to compiler to vectorize
+    - promise by user that code is safe to vectorize, no data races or locks
+  - Kumar's comment- worth reminding ourselves that these algorithms are not real-time safe since they allocate heap memory by default, but I wonder if we can combine these algorithms with custom memory pool allocators like `std::pmr::monotonic_buffer_resource`,  etc 
+  - the most popular C++ parallel algorithm is `std::transofrm_reduce` make sure your code is thread safe with no data races
+- `std::thread`
+  - a thread that is `detach()`-ed will be cleaned up by the OS
+  - it's generally safer to use `.join()` vs `.detach()`. Either `.join()` or `.detach()` has to be called, else the program will crash
+- MUTEXES
+  - MUTual EXclusion
+  - only one thread at a time can lock/acquire the mutex
+  - a mutex enforces a potentially concurrent activity to be sequential
+  - there is a hidden mechanism that handles passing around the lock from one thread to another. it is the duty of each thread to request the mutex before performing the sequential operation
+    - `lock()` - blocks until the lock is acquired
+    - `try_lock()` - returns immediately, true if lock acquired
+    - `unlock()` - releases the lock, UB if current thread doesn't own the lock
+  - Always use lock guards instead
+    - these are RAII wrappers around mutexes and guarantees that the mutex is always released
+    - `std::scoped_lock lock(mutex_a, mutex_b);` <- if C++17
+    - `std::lock_guard<std::mutex> lock(mutex_a);` <- if not C++17
+  - Since mutexes can kill performance, the locked region must be as small as possible. Careful thought must be put into this design.
+  - `std::scoped_lock lock(mutex_a, mutex_b);` is useful for avoiding deadlocks
+  - A tight loop that acquires and releases a mutex every loop is an anti-pattern, mutexes are intended for occasional locking, not repeated persistent locking.
+- `std::atomic<T>`
+  - even when using an atomic variable across multiple threads, the updates to this shared variable state must be minimal. have each thread collect the change locally and update the shared state only once.
+- `std::condition_variable`
+  - useful when some threads are waiting for a condition and other threads make condition true
+- `std::counting_semaphore` <- C++20
+  - A counting_semaphore is a lightweight synchronization primitive that can control access to a shared resource. Unlike a std::mutex, a counting_semaphore allows more than one concurrent access to the same resource, for at least LeastMaxValue concurrent accessors
+- `std::latch`
+  - synchronize the completion of a shared task
+  - each thread calls arrive_and_wait(). blocks until all threads have called arrive_and_wait()
+- `std::barrier`
+  - reusable latch
+  - once all threads have called `arrive_and_wait()` and been unblocked, the process starts over
+- Kumar's comment: there were more slides on different flavors of mutexes, but I didn't see a use case for them so I didn't note them down
